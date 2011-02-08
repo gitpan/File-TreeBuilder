@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package File::TreeBuilder_T;
 BEGIN {
-  $File::TreeBuilder_T::VERSION = '0.01';
+  $File::TreeBuilder_T::VERSION = '0.02';
 }
 # ABSTRACT: Test the File::TreeBuilder module.
 
@@ -72,15 +72,14 @@ example('a3', sub {
     exp_result("", build_tree($dir, << 'EOT'));
     / "foo qux"
         . "bar baz"
-    / "foo\" qux"
-        . 'bar" baz', "moo"
+    / "foo ' qux"
+        . "bar' baz", "moo"
 EOT
-       # . "bar\" baz", "moo"
     exp_dir($dir);
     exp_dir("$dir/foo qux");
     exp_file("$dir/foo qux/bar baz");
-    exp_dir(qq{$dir/foo" qux});
-    exp_file(qq{$dir/foo" qux/bar" baz});
+    exp_dir(qq{$dir/foo ' qux});
+    exp_file(qq{$dir/foo ' qux/bar' baz});
 });
 
 # --------------------------------------------------------------------
@@ -104,12 +103,12 @@ File::TreeBuilder_T - Test the File::TreeBuilder module.
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 SYNOPSIS
 
         # See Test::Usage for details.
-    perl -I.. -MFile::TreeBuilder_T -e 'test(a => "*")'
+    perl -I.. -MFile::TreeBuilder_T -e "test(a => q[*])"
 
 =head1 AUTHOR
 

@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use FindBin qw($Bin);
+use FindBin qw<$Bin>;
 use Test::Usage;
 
 files(

@@ -1,8 +1,9 @@
+use 5.008001;
 use strict;
 use warnings;
 package File::TreeBuilder;
 BEGIN {
-  $File::TreeBuilder::VERSION = '0.01';
+  $File::TreeBuilder::VERSION = '0.02';
 }
 # ABSTRACT: Build simple trees of files and directories.
 
@@ -15,7 +16,8 @@ our @EXPORT_OK = qw(build_tree);
 sub build_tree {
     my ($dir, $str) = @_;
     my $caller_pkg = (caller)[0];
-    my @lines = split /\n/, ($str // "");
+    $str = q[] unless defined $str;
+    my @lines = split /\n/, $str;
         # Remove blank lines and comments.
     @lines = grep ! /^\s*(?:#|$)/, @lines;
     my $err_str = q[];
@@ -94,7 +96,7 @@ File::TreeBuilder - Build simple trees of files and directories.
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 SYNOPSIS
 
